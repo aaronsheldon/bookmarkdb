@@ -162,7 +162,7 @@ module.exports = class BookmarkDB extends Function {
         return new COMMAND(UNDOLABEL);
     }
 
-    // Remove vertex labels recursively closure wrapper
+    // Remove vertex labels closure wrapper
     static UNDOLABELS(query = {}) {
         const UNDOLABELS = ({ bookmarks } = {}) => {
             query.bookmarks = bookmarks;
