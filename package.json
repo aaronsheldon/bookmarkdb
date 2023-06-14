@@ -22,11 +22,11 @@
   ],
   "author": "Aaron Sheldon",
   "license": "MIT",
-  "dependencies": {
-    "@aaronsheldon/mirrormap": "file:../../@aaronsheldon/MirrorMap"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/aaronsheldon/bookmarkdb"
+  },
+  "dependencies": {
+    "@aaronsheldon/mirrormap": "latest"
   }
 }
