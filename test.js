@@ -40,3 +40,7 @@ console.log(JSON.stringify(db[""], null, 4));
 console.log(db(BookmarkDB.GETLABELS({ vertex: db["Betty"] })));
 console.log(db["UK"]);
 console.log(db(BookmarkDB.GETLABELS({ vertex: db["UK"] })));
+const e = (x) => { return x + 1; };
+try { const c = new COMMAND(e); } catch { console.log("Failed successfully") }
+console.log(e);
+console.log(db(BookmarkDB.GETBOOKMARKS()));
