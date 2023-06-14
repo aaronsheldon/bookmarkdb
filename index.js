@@ -50,7 +50,7 @@ module.exports = class BookmarkDB extends Function {
 
             // Remove from the map
             deleteProperty(t, k) {
-                if (k === "") { return bookmarks.clear(); }
+                if (k === "") { return false; }
                 return bookmarks.delete(k);
             }
         };
