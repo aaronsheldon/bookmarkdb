@@ -11,15 +11,13 @@ module.exports = class BookmarkDB extends Function {
 
         // Safely update document nodes.
         const BookmarkDB = (command) => {
-            if (command instanceof COMMAND) {
-                return command({ bookmarks: bookmarks });
-            }
+            if (command instanceof COMMAND) { return command({ bookmarks: bookmarks }); }
         };
 
         // Override property accessors to forward to the bookmarks
         const handlers = {
             defineProperty(t, k, d) { return false; },
-            getOwnPropertyDescriptor(t, k) { return undefined; },
+            getOwnPropertyDescriptor(t, k) { return; },
             getPrototypeOf(t) { return base; },
             setPrototypeOf(t, p) { return false; },
             has(t, k) { return bookmarks.has(k); },
@@ -55,7 +53,7 @@ module.exports = class BookmarkDB extends Function {
             }
         };
 
-        // Send;
+        // Send
         return new Proxy(BookmarkDB, handlers);
     }
 
@@ -65,7 +63,9 @@ module.exports = class BookmarkDB extends Function {
         const query = { bookmarks: bookmarks, vertex: parent[edge] };
         if (Array.isArray(parent) && edge === undefined) { parent.push(child); }
         else { parent[edge] = child; }
-        if (child instanceof Object && typeof label === "string" && label !== "") { bookmarks.set(child, label); }
+        if (child instanceof Object && typeof label === "string" && label !== "") {
+            bookmarks.set(child, label);
+        }
         return BookmarkDB.#CLEARLABELS(query);
     }
 
@@ -192,7 +192,5 @@ module.exports = class BookmarkDB extends Function {
 
 // Protected factory class
 class COMMAND extends Function {
-    constructor(executor) {
-        return Object.setPrototypeOf(executor, super());
-    }
+    constructor(executor) { return Object.setPrototypeOf(executor, super()); }
 }

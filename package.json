@@ -1,6 +1,6 @@
 {
   "name": "@aaronsheldon/bookmarkdb",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An agnostic and unobtrusive in-memory database to bookmark deeply into parsed JSON documents. Using only native JavaScript constructs, BookmarkDB extends Function to implement minimal referential integrity between a document and it's bookmarks.",
   "main": "index.js",
   "scripts": {
