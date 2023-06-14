@@ -1,0 +1,36 @@
+{
+    "staff": [
+        {
+            "name": "Betty",
+            "region": "California",
+            "role": "Contractor"
+        },
+        {
+            "name": "Veronica",
+            "region": "California",
+            "role": "Consultant"
+        },
+        {
+            "name": "Wednesday",
+            "region": "Transylvania",
+            "role": "President"
+        },
+        {
+            "name": "Morticia",
+            "region": "Transylvania",
+            "role": "Chair"
+        }
+    ],
+    "offices": [
+        {
+            "region": "Transylvania",
+            "opened": "1400-01-01T00:00:00.000Z",
+            "duty": "Headquarters"
+        },
+        {
+            "region": "California",
+            "opened": "1960-01-01T00:00:00.000Z",
+            "duty": "Branch"
+        }
+    ]
+}

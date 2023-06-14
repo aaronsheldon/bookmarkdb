@@ -1,0 +1,32 @@
+{
+  "name": "@aaronsheldon/bookmarkdb",
+  "version": "0.0.1",
+  "description": "An agnostic and unobtrusive in-memory database to bookmark deeply into parsed JSON documents. Using only native JavaScript constructs, BookmarkDB extends Function to implement minimal referential integrity between a document and it's bookmarks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "json",
+    "bookmark",
+    "database",
+    "key",
+    "value",
+    "store",
+    "index",
+    "search",
+    "in-memory",
+    "no-sql",
+    "label",
+    "query"
+  ],
+  "author": "Aaron Sheldon",
+  "license": "MIT",
+  "dependencies": {
+    "@aaronsheldon/mirrormap": "file:../../@aaronsheldon/MirrorMap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaronsheldon/bookmarkdb"
+  }
+}
