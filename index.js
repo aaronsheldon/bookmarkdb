@@ -56,8 +56,8 @@ module.exports = class BookmarkDB extends Function {
 
     // Create or replace vertex private
     static #ASSIGNVERTEX({ bookmarks, parent, edge, child, label } = {}) {
-        const query = { bookmarks: bookmarks, vertex: parent[edge]};
-        if (child === undefined) { return; }
+        const query = { bookmarks: bookmarks, vertex: parent[edge] };
+        if (child === undefined) { return false; }
         if (Array.isArray(parent) && edge === undefined) { parent.push(child); }
         else { parent[edge] = child; }
         if (child instanceof Object && typeof label === "string" && label !== "") { bookmarks.set(child, label); }
@@ -66,7 +66,7 @@ module.exports = class BookmarkDB extends Function {
 
     // Delete vertex private
     static #REMOVEVERTEX({ bookmarks, parent, edge } = {}) {
-        const query = { bookmarks: bookmarks, vertex: parent[edge]};
+        const query = { bookmarks: bookmarks, vertex: parent[edge] };
         if (Array.isArray(parent) && Number.isInteger(edge)) { parent.splice(edge, 1); }
         else { delete parent[edge]; }
         return BookmarkDB.#UNDOLABELS(query);
@@ -74,31 +74,28 @@ module.exports = class BookmarkDB extends Function {
 
     // Get labels private
     static #GETLABELS({ bookmarks, vertex } = {}) {
-        if (!(vertex instanceof Object)) { return; }
+        if (!(vertex instanceof Object)) { return false; }
         const ls = bookmarks.get(vertex);
         return ls.size === 1 ? ls.values().next().value : ls;
     }
 
     // Remove label private
     static #UNDOLABEL({ bookmarks, vertex, label } = {}) {
-        if (!(vertex instanceof Object)) { return; }
-        if (typeof label !== "string") { return; }
-        if (label === "") { return; }
+        if (!(vertex instanceof Object)) { return false; }
+        if (label === undefined) { return bookmarks.delete(vertex) }
+        if (typeof label !== "string") { return false; }
+        if (label === "") { return false; }
         return bookmarks.undo(vertex, label);
     }
 
     // Remove labels recursively private
     static #UNDOLABELS({ bookmarks, vertex } = {}) {
-        if (!(vertex instanceof Object)) { return; }
+        if (vertex === undefined) { return bookmarks.clear(); }
+        if (!(vertex instanceof Object)) { return false; }
         (Array.isArray(vertex) ? vertex : Object.values(vertex)).forEach(
             (v) => { BookmarkDB.#UNDOLABELS({ bookmarks: bookmarks, vertex: v }); }
         );
         return bookmarks.delete(vertex);
-    }
-
-    // Remove all labels private
-    static #CLEARLABELS({ bookmarks } = {}) {
-        return bookmarks.clear();
     }
 
     // Create or replace vertex closure wrapper
@@ -144,15 +141,6 @@ module.exports = class BookmarkDB extends Function {
             return BookmarkDB.#UNDOLABELS(query);
         };
         return new COMMAND(UNDOLABELS);
-    }
-
-    // Remove all labels closure wrapper
-    static CLEARLABELS(query = {}) {
-        const CLEARLABELS = ({ bookmarks } = {}) => {
-            query.bookmarks = bookmarks;
-            return BookmarkDB.#CLEARLABELS(query);
-        };
-        return new COMMAND(CLEARLABELS);
     }
 }
 
