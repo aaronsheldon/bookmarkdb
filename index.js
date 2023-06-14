@@ -57,9 +57,10 @@ module.exports = class BookmarkDB extends Function {
     // Create or replace vertex private
     static #ASSIGNVERTEX({ bookmarks, parent, edge, child, label } = {}) {
         const query = { bookmarks: bookmarks, vertex: parent[edge]};
+        if (child === undefined) { return; }
         if (Array.isArray(parent) && edge === undefined) { parent.push(child); }
         else { parent[edge] = child; }
-        if (typeof label === "string" && label !== "") { bookmarks.set(child, label); }
+        if (child instanceof Object && typeof label === "string" && label !== "") { bookmarks.set(child, label); }
         return BookmarkDB.#UNDOLABELS(query);
     }
 
