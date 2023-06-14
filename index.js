@@ -36,7 +36,12 @@ module.exports = class BookmarkDB extends Function {
             set(t, k, v, r) {
                 if (k === "") { return false; }
                 if (v instanceof Set) {
-                    v.forEach((e) => { bookmarks.set(k, e); });
+                    v.forEach(
+                        (e) => {
+                            if (!(e instanceof Object)) { return; }
+                            bookmarks.set(k, e);
+                        }
+                    );
                     return true;
                 }
                 if (v instanceof Object) { return bookmarks.set(k, v); };
